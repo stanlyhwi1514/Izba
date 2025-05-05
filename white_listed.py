@@ -1,0 +1,6 @@
+
+
+
+WHITELISTED = [
+    'getAccount'
+]
