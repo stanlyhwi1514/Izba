@@ -2,6 +2,7 @@ playbook_template_schema = {
   "title": "Playbook",
   "type": "object",
   "required": [
+    "customer_id"
     "playbook_type",
     "name",
     "description",
@@ -13,6 +14,7 @@ playbook_template_schema = {
     "updated_at"
   ],
   "properties": {
+    "customer_id": { "type": "string" },
     "playbook_type": { "type": "string" },
     "name": { "type": "string" },
     "description": { "type": "string" },
