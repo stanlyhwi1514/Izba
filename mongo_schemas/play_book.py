@@ -57,6 +57,12 @@ playbook_template_schema = {
     "updated_at": {
       "type": "string",
       "format": "date-time"
+    },
+    "successful": {
+        "type": "boolean"
+    },
+    "active": {
+        "type": "boolean"
     }
   }
 }
