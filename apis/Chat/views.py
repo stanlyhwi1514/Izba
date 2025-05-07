@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from extensions import db
+from flask import g
 from apis.Chat.models import Category, Prompt,FocusCategory  # Assuming these are your models
 from common.utils.object_convertor import query_to_list
 from  apis.common_model.models import Customer
