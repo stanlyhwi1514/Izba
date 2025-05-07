@@ -14,19 +14,29 @@ channel_api = Blueprint('channel', __name__)
 @channel_api.route('/v1/channel/getCustomers', methods=['GET'])
 def getCustomers():
     try:
-        # Use the db session stored in g
         db = g.db
+        filter_by = request.args.get("filter")  # Correct way to get query param
 
-        # Query all customers using the g.db session
-        customers = db.query(Customer).all()
+        query = db.query(Customer)
 
-        # Assuming query_to_list is a function to convert the result to a dictionary
-        result = query_to_list(customers)
+        if filter_by:
+            if filter_by == "renewal_date":
+                query = query.order_by(Customer.renewal_date.asc())
+            elif filter_by == "net_revenue_retention":
+                query = query.order_by(Customer.net_revenue_retention.desc())
+            elif filter_by == "high_revenue":
+                query = query.order_by(Customer.total_revenue.desc())
+            elif filter_by == "low_revenue":
+                query = query.order_by(Customer.total_revenue.asc())
+            
+        else:
+            customers = query.all()
 
+        result = query_to_list(customers)  # Convert result to list of dicts
         return jsonify({'categories': result}), 200
 
     except Exception as e:
-        return jsonify({'some thing went wrong': str(e)}), 500
+        return jsonify({'error': str(e)}), 500
     
 
 @channel_api.route('/v1/channel/CreateAlerts', methods=['POST'])

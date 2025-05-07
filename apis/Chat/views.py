@@ -2,7 +2,7 @@ from flask import Blueprint, request, jsonify
 from extensions import db
 from apis.Chat.models import Category, Prompt,FocusCategory  # Assuming these are your models
 from common.utils.object_convertor import query_to_list
-
+from  apis.common_model.models import Customer
 chat_api = Blueprint('chat_api', __name__)
 
 @chat_api.route('/v1/chat/insertCategories', methods=['POST'])
@@ -189,6 +189,24 @@ def get_focus_categories():
     except Exception as e:
         # Handle any errors
         return jsonify({'error': str(e)}), 500
+    
+@chat_api.route('/v1/channel/getCustomers', methods=['GET'])
+def getCustomers():
+    try:
+        # Use the db session stored in g
+        db = g.db
+
+        # Query all customers using the g.db session
+        customers = db.query(Customer).all()
+
+        # Assuming query_to_list is a function to convert the result to a dictionary
+        result = query_to_list(customers)
+
+        return jsonify({'categories': result}), 200
+
+    except Exception as e:
+        return jsonify({'some thing went wrong': str(e)}), 500
+
 
 
 #checking commit 
