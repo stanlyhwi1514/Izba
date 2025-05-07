@@ -3,7 +3,7 @@ from jsonschema import validate, ValidationError
 from mongo_schemas.breifing_document import breifing_document_schema
 from mongo_validator.validate_json import validate_json
 from apis.common_model.models import Customer
-from apis.AlwaysOnChannel.models import Alerts
+from apis.AlwaysOnChannel.models import Alert
 from common.utils.object_convertor import query_to_list
 from apis.common_model.models import User
 from extensions import mongo
@@ -51,7 +51,7 @@ def getRisk():
             alerts = [alert for alert in customer.alerts if alert.type == 'Risk']
         else:
             # Query all alerts with type = 'risk'
-            alerts = db.query(Alerts).filter(Alerts.type == 'Risk').all()
+            alerts = db.query(Alert).filter(Alert.type == 'Risk').all()
 
         result = query_to_list(alerts)
         return jsonify({'alerts': result}), 200
@@ -75,7 +75,7 @@ def getOpportunity():
             alerts = [alert for alert in customer.alerts if alert.type == 'Opportunity']
         else:
             # Query all alerts with type = 'risk'
-            alerts = db.query(Alerts).filter(Alerts.type == 'Opportunity').all()
+            alerts = db.query(Alert).filter(Alert.type == 'Opportunity').all()
 
         result = query_to_list(alerts)
         return jsonify({'alerts': result}), 200

@@ -4,7 +4,7 @@ from common.utils.object_convertor import query_to_list
 
 from apis.common_model.models import Customer
 
-from apis.AlwaysOnChannel.models import Alerts
+from apis.AlwaysOnChannel.models import Alert
 from flask import Response, g
 
 
@@ -42,7 +42,7 @@ def create_alert():
             return jsonify({'error': f'Missing required field: {field}'}), 400
 
     # Create an Alert object
-    new_alert = Alerts(
+    new_alert = Alert(
         customer_id=data['customer_id'],
         type=data['type'],
         severity=data['severity'],
@@ -77,7 +77,7 @@ def getAlerts():
 
             alerts = customer.alerts  # Uses the defined relationship
         else:
-            alerts = db.query(Alerts).all()
+            alerts = db.query(Alert).all()
 
         result = query_to_list(alerts)
         return jsonify({'alerts': result}), 200

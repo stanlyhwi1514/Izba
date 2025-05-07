@@ -1,8 +1,8 @@
-from sqlalchemy import Column, String, Text, Boolean, ForeignKey, DateTime, func, CheckConstraint
+from sqlalchemy import Column, String, Text, Boolean, ForeignKey, DateTime, func, CheckConstraint,Enum
 from sqlalchemy.orm import relationship
 from extensions import db  # adjust if your db import is different
 from base.models import BaseModel  # assuming your BaseModel is in models.base
-
+import enum
 class Tenant(BaseModel):
     __tablename__ = 'tenants'
 
@@ -20,27 +20,22 @@ class Customer(BaseModel):
     name = Column(Text, nullable=False)
     industry = Column(Text)
 
-    users = relationship('User', backref='customer', cascade="all, delete-orphan")
-    alerts = relationship('Alerts', backref='customer', cascade='all, delete-orphan')
+    alerts = relationship('Alert', backref='customer', cascade='all, delete-orphan')
+
+class TeamEnum(enum.Enum):
+    accounts_team = 'accounts team'
+    customer_team = 'customer team'
 
 class User(BaseModel):
     __tablename__ = 'users'
 
     tenant_id = Column(String(40), ForeignKey('tenants.id', ondelete="CASCADE"), nullable=False)
-    customer_id = Column(String(40), ForeignKey('customers.id'))
     email = Column(Text, nullable=False, unique=True)
     full_name = Column(Text)
     password_hash = Column(Text, nullable=False)
     is_active = Column(Boolean, default=True)
-    user_type = Column(String(40), nullable=False)
-    role = Column(String(40))
-
-    __table_args__ = (
-        CheckConstraint(
-            "user_type IN ('accounts', 'customer')",
-            name='check_user_type_valid'
-        ),
-    )
+    team = Column(enum.Enum(TeamEnum, name='team_enum'), nullable=False)
+    role_id = Column(String(40), ForeignKey('roles.id', ondelete="CASCADE"))  # ✅ FK to roles.id with CASCADE delete
 
 
 class Role(BaseModel):
@@ -48,7 +43,6 @@ class Role(BaseModel):
 
     name = Column(String(50), nullable=False, unique=True)
     description = Column(Text)
-
     role_permissions = relationship('RolePermission', backref='role', cascade="all, delete-orphan")
 
 
