@@ -22,3 +22,7 @@ class FocusCategory(BaseModel,db.Model):
     __tablename__ = 'focus_categories'
     name = db.Column(db.String(255), unique=True, nullable=False)
     display_order = db.Column(db.Integer)
+
+
+
+#checking commit 
