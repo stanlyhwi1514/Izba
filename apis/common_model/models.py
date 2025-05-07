@@ -9,8 +9,8 @@ class Tenant(BaseModel):
     name = Column(Text, nullable=False, unique=True)
     domain = Column(Text, unique=True)
 
-    customers = relationship('Customer', backref='tenant', cascade="all, delete-orphan")
-    users = relationship('User', backref='tenant', cascade="all, delete-orphan")
+    customers = relationship('Customer', backref='tenant')
+    users = relationship('User', backref='tenant')
 
 
 class Customer(BaseModel):
@@ -23,7 +23,7 @@ class Customer(BaseModel):
     net_revenue_retention = Column(Numeric)  
     total_revenue = Column(Numeric)
 
-    alerts = relationship('Alert', backref='customer', cascade='all, delete-orphan')
+    alerts = relationship('Alert', backref='customer',)
 
 class TeamEnum(enum.Enum):
     accounts_team = 'accounts team'
