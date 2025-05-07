@@ -46,7 +46,7 @@ class Role(BaseModel):
     description = Column(Text)
 
     users = relationship("User", back_populates="role")
-    role_permissions = relationship('RolePermission', backref='role', cascade="all, delete-orphan")
+    role_permissions = relationship('RolePermission', backref='role')
 
 
 class Permission(BaseModel):
@@ -56,7 +56,7 @@ class Permission(BaseModel):
     method = Column(Text, nullable=False)
     path = Column(Text, nullable=False)
 
-    role_permissions = relationship('RolePermission', backref='permission', cascade="all, delete-orphan")
+    role_permissions = relationship('RolePermission', backref='permission')
 
 
 class RolePermission(BaseModel):
