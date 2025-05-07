@@ -35,14 +35,17 @@ class User(BaseModel):
     password_hash = Column(Text, nullable=False)
     is_active = Column(Boolean, default=True)
     team = Column(Enum(TeamEnum, name='team_enum'), nullable=False)
-    role_id = Column(String(40), ForeignKey('roles.id', ondelete="CASCADE"))  # ✅ FK to roles.id with CASCADE delete
+    role_id = Column(String(40), ForeignKey('roles.id', ondelete="SET NULL"), nullable=True)
 
+    role = relationship("Role", back_populates="users")  # ✅ optional: access Role from User
 
 class Role(BaseModel):
     __tablename__ = 'roles'
-
+    
     name = Column(String(50), nullable=False, unique=True)
     description = Column(Text)
+
+    users = relationship("User", back_populates="role")
     role_permissions = relationship('RolePermission', backref='role', cascade="all, delete-orphan")
 
 
