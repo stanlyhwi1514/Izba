@@ -34,7 +34,7 @@ class User(BaseModel):
     full_name = Column(Text)
     password_hash = Column(Text, nullable=False)
     is_active = Column(Boolean, default=True)
-    team = Column(enum.Enum(TeamEnum, name='team_enum'), nullable=False)
+    team = Column(Enum(TeamEnum, name='team_enum'), nullable=False)
     role_id = Column(String(40), ForeignKey('roles.id', ondelete="CASCADE"))  # ✅ FK to roles.id with CASCADE delete
 
 
