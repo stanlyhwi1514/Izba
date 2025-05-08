@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Text, Boolean, ForeignKey, DateTime, func, CheckConstraint,Enum
+from sqlalchemy import Column, String, Text, Boolean, ForeignKey, DateTime, func, CheckConstraint,Enum,Numeric
 from sqlalchemy.orm import relationship
 from extensions import db  # adjust if your db import is different
 from base.models import BaseModel  # assuming your BaseModel is in models.base
@@ -18,6 +18,10 @@ class Customer(BaseModel):
 
     name = Column(Text, nullable=False)
     industry = Column(Text)
+    renewal_date = Column(DateTime(timezone=True), server_default=func.now(), index=True) 
+    net_revenue_retention = Column(Numeric)  
+    total_revenue = Column(Numeric)
+
     alerts = relationship('Alert', backref='customer',)
 
 class TeamEnum(enum.Enum):
