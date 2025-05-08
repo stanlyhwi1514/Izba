@@ -21,6 +21,7 @@ breifing_document_schema ={
   "properties": {
     "customer_id": { "type": "string" },
     "title": { "type": "string" },
+    "sign_off_by": { "type": "string" },
     "account_name": { "type": "string" },
     "description": { "type": "string" },
     "fiscal_year": {
