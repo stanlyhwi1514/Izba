@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from extensions import db
-from common.utils.object_convertor import query_to_list
+from common.utils.object_convertor import query_to_list,convert_to_json_serializable
 
 from apis.common_model.models import Customer
 
@@ -21,18 +21,18 @@ def getCustomers():
 
         if filter_by:
             if filter_by == "renewal_date":
-                query = query.order_by(Customer.renewal_date.asc())
+                customers = query.order_by(Customer.renewal_date.asc())
             elif filter_by == "net_revenue_retention":
-                query = query.order_by(Customer.net_revenue_retention.desc())
+                customers = query.order_by(Customer.net_revenue_retention.desc())
             elif filter_by == "high_revenue":
-                query = query.order_by(Customer.total_revenue.desc())
+                customers = query.order_by(Customer.total_revenue.desc())
             elif filter_by == "low_revenue":
-                query = query.order_by(Customer.total_revenue.asc())
+                customers = query.order_by(Customer.total_revenue.asc())
             
         else:
             customers = query.all()
 
-        result = query_to_list(customers)  # Convert result to list of dicts
+        result = convert_to_json_serializable(customers) 
         return jsonify({'categories': result}), 200
 
     except Exception as e:

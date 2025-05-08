@@ -19,7 +19,7 @@ class Customer(BaseModel):
     tenant_id = Column(String(40), ForeignKey('tenants.id', ondelete="CASCADE"))
     name = Column(Text, nullable=False)
     industry = Column(Text)
-    renewal_date = Column(DateTime) 
+    renewal_date = Column(DateTime(timezone=True), server_default=func.now(), index=True) 
     net_revenue_retention = Column(Numeric)  
     total_revenue = Column(Numeric)
 
