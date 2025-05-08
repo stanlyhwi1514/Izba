@@ -4,7 +4,7 @@ from extensions import db  # adjust if your db import is different
 from base.models import BaseModel  # assuming your BaseModel is in models.base
 import enum
 class Tenant(BaseModel):
-    __tablename__ = 'tenants'
+    __tablename__ = 'tenant'
 
     name = Column(Text, nullable=False, unique=True)
     domain = Column(Text, unique=True)
@@ -16,10 +16,8 @@ class Tenant(BaseModel):
 class Customer(BaseModel):
     __tablename__ = 'customers'
 
-    tenant_id = Column(String(40), ForeignKey('tenants.id', ondelete="CASCADE"))
     name = Column(Text, nullable=False)
     industry = Column(Text)
-
     alerts = relationship('Alert', backref='customer',)
 
 class TeamEnum(enum.Enum):
@@ -29,7 +27,6 @@ class TeamEnum(enum.Enum):
 class User(BaseModel):
     __tablename__ = 'users'
 
-    tenant_id = Column(String(40), ForeignKey('tenants.id', ondelete="CASCADE"), nullable=False)
     email = Column(Text, nullable=False, unique=True)
     full_name = Column(Text)
     password_hash = Column(Text, nullable=False)
