@@ -12,6 +12,13 @@ class Tenant(BaseModel):
     customers = relationship('Customer', backref='tenant')
     users = relationship('User', backref='tenant')
 
+class SourceEnum(enum.Enum):
+    gmail = 'gmail'
+    slack = 'slack'
+    gong = 'gong'
+    zoom = 'zoom'
+    microsoft_team = 'microsoft team'
+    sales_force = 'sales force'
 
 class Customer(BaseModel):
     __tablename__ = 'customers'
@@ -21,7 +28,7 @@ class Customer(BaseModel):
     renewal_date = Column(DateTime(timezone=True), server_default=func.now(), index=True) 
     net_revenue_retention = Column(Numeric)  
     total_revenue = Column(Numeric)
-
+    source = Column(Enum(SourceEnum), nullable=True)
     alerts = relationship('Alert', backref='customer',)
 
 class TeamEnum(enum.Enum):
