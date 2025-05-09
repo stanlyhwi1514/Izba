@@ -33,7 +33,7 @@ class Customer(BaseModel):
 
 class TeamEnum(enum.Enum):
     accounts_team = 'accounts team'
-    customer_team = 'customer team'
+    customer_team = 'initiative team'
 
 class User(BaseModel):
     __tablename__ = 'users'
