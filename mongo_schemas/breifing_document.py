@@ -1,4 +1,5 @@
 breifing_document_schema ={
+    
   "title": "Briefing Schema",
   "type": "object",
   "required": [
@@ -17,8 +18,17 @@ breifing_document_schema ={
     "sentiment_image_url",
     "created_at",
     "updated_at",
+    "bookmarks",
+    "drafts",
+    "saved",
+    "document_name"
+
   ],
   "properties": {
+    "document_name": { "type": "string" },
+    "bookmarks": { "type": "boolean" },
+    "drafts": { "type": "boolean" },
+    "saved": { "type": "boolean" },
     "customer_id": { "type": "string" },
     "title": { "type": "string" },
     "sign_off_by": { "type": "string" },
