@@ -11,9 +11,11 @@ playbook_template_schema = {
     "associated_skills",
     "workflow",
     "created_at",
-    "updated_at"
+    "updated_at",
+    "category"
   ],
   "properties": {
+    "category": { "type": "string" }, 
     "customer_id": { "type": "string" },
     "playbook_type": { "type": "string" },
     "name": { "type": "string" },
