@@ -12,7 +12,11 @@ playbook_template_schema = {
     "workflow",
     "created_at",
     "updated_at",
-    "category"
+    "category",
+    "active",
+    "delayed",
+    "successful"
+
   ],
   "properties": {
     "category": { "type": "string" }, 
@@ -64,6 +68,9 @@ playbook_template_schema = {
         "type": "boolean"
     },
     "active": {
+        "type": "boolean"
+    },
+     "delayed": {
         "type": "boolean"
     }
   }
