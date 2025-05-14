@@ -4,6 +4,7 @@ breifing_document_schema ={
   "type": "object",
   "required": [
     "customer_id",
+    "alert_id",
     "title",
     "account_name",
     "description",
@@ -30,6 +31,7 @@ breifing_document_schema ={
     "drafts": { "type": "boolean" },
     "saved": { "type": "boolean" },
     "customer_id": { "type": "string" },
+    "alert_id": { "type": "string" },
     "title": { "type": "string" },
     "sign_off_by": { "type": "string" },
     "account_name": { "type": "string" },
